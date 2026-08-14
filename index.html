@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kairo | Tienda Online de Merch & Regalos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff7b90;
+            --secondary: #ffb703;
+            --bg-color: #fff9f5;
+            --card-bg: #ffffff;
+            --text-color: #2b2b2b;
+            --accent: #e0536c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            padding: 2rem 1rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .cart-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .cart-btn:hover {
+            background-color: var(--accent);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .about-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .about-section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background-color: var(--secondary);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .add-to-cart:hover {
+            opacity: 0.9;
+        }
+
+        /* Modal Carrito */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .cart-items {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .checkout-btn {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            width: 100%;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .close-modal {
+            background: #ccc;
+            color: #333;
+            border: none;
+            padding: 0.5rem;
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            background-color: #fff;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>KaiRo ✨</h1>
+        <p>Tu estilo, tus detalles[cite: 1]</p>
+    </header>
+
+    <nav>
+        <div class="logo">Kairo Store</div>
+        <button class="cart-btn" onclick="toggleModal()">🛒 Carrito (<span id="cart-count">0</span>)</button>
+    </nav>
+
+    <div class="container">
+        <section class="about-section">
+            <h2>¿Qué es Kairo?</h2>
+            <p>Somos una tienda online dedicada a la merch más cool. Creamos y seleccionamos accesorios y detalles perfectos para regalar o regalarte[cite: 1]. Ideal para obsequiar originalidad y buena vibra en cualquier ocasión[cite: 1].</p>
+            <p style="margin-top: 1rem; font-weight: 600; color: var(--accent);">🚚 Envíos a toda Valencia</p>
+        </section>
+
+        <h2 style="text-align: center; margin-bottom: 1.5rem; color: var(--accent);">Nuestros Productos[cite: 1]</h2>
+        
+        <div class="products-grid">
+            <div class="product-card">
+                <h3>Llaveros</h3>
+                <p>Diseños únicos y divertidos para llevar tu estilo a todas partes y personalizar tus llaves o bolsos[cite: 1].</p>
+                <div class="price">$3.00</div>
+                <button class="add-to-cart" onclick="addToCart('Llavero Único', 3.00)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product-card">
+                <h3>Accesorios</h3>
+                <p>Complementos llenos de personalidad que le darán un toque súper especial a tus outfits diarios[cite: 1].</p>
+                <div class="price">$5.00</div>
+                <button class="add-to-cart" onclick="addToCart('Accesorio Casual', 5.00)">Agregar al Carrito</button>
+            </div>
+
+            <div class="product-card">
+                <h3>Merch & Regalos</h3>
+                <p>Todo lo necesario para acertar con un detalle original, tierno y memorable para esa persona especial[cite: 1].</p>
+                <div class="price">$8.00</div>
+                <button class="add-to-cart" onclick="addToCart('Pack Merch & Regalo', 8.00)">Agregar al Carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Carrito -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <h2>Tu Pedido</h2>
+            <div class="cart-items" id="cart-items">
+                <p style="text-align: center; color: #888;">El carrito está vacío</p>
+            </div>
+            <div style="font-weight: 700; text-align: right; margin-bottom: 1rem;">
+                Total: $<span id="cart-total">0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="checkoutWhatsApp()">Hacer pedido por WhatsApp 📱</button>
+            <button class="close-modal" onclick="toggleModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>@Kairo_vall | Envíos a toda Valencia 🚚✨[cite: 1]</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            alert(`¡Agregado al carrito: ${name}!`);
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const container = document.getElementById('cart-items');
+            const totalElement = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #888;">El carrito está vacío</p>';
+                totalElement.innerText = '0.00';
+                return;
+            }
+
+            container.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span>$${item.price.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            totalElement.innerText = total.toFixed(2);
+        }
+
+        function toggleModal() {
+            const modal = document.getElementById('cart-modal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert('Agrega productos a tu carrito antes de hacer el pedido.');
+                return;
+            }
+            let message = '¡Hola! Quiero hacer el siguiente pedido en Kairo:\n\n';
+            let total = 0;
+            cart.forEach(item => {
+                message += `- ${item.name} ($${item.price.toFixed(2)})\n`;
+                total += item.price;
+            });
+            message += `\nTotal a pagar: $${total.toFixed(2)}\n¡Espero confirmación para envíos en Valencia![cite: 1]`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            // Reemplaza el número de teléfono con el tuyo de WhatsApp
+            window.open(`https://wa.me/584120000000?text=${encodedMessage}`, '_blank');
+        }
+    </script>
+</body>
+</html>
