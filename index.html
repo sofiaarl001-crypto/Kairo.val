@@ -132,7 +132,6 @@
             transform: translateY(-5px);
         }
 
-        /* Sección de Accesorios ampliada */
         .product-card.featured-accessory {
             grid-column: span 1;
             background: linear-gradient(to bottom, #ffffff, #fff0ed);
@@ -173,7 +172,6 @@
             opacity: 0.9;
         }
 
-        /* Modal Carrito */
         .modal {
             display: none;
             position: fixed;
@@ -263,7 +261,8 @@
 <body>
 
     <header>
-        <img src="data:image/png;base64,..." alt="Kairo Logo" class="logo-img" id="header-logo">
+        <!-- Aquí está el logo enlazado correctamente -->
+        <img src="logo.png" alt="Kairo Logo" class="logo-img" id="header-logo">
         <h1>Kairo</h1>
         <p>Tu estilo, tus detalles</p>
     </header>
@@ -290,7 +289,6 @@
                 <button class="add-to-cart" onclick="addToCart('Llavero Único', 3.00)">Agregar al Carrito</button>
             </div>
 
-            <!-- Sección de Accesorios ampliada y destacada -->
             <div class="product-card featured-accessory">
                 <h3 style="font-size: 1.4rem;">Accesorios Destacados</h3>
                 <p style="font-size: 1.05rem;">Complementos llenos de personalidad que le darán un toque súper especial y único a tus outfits diarios. ¡Nuestra selección estrella!</p>
@@ -307,7 +305,6 @@
         </div>
     </div>
 
-    <!-- Modal del Carrito -->
     <div class="modal" id="cart-modal">
         <div class="modal-content">
             <h2>Tu Pedido</h2>
