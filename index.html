@@ -3,381 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kairo | Tienda Online de Merch & Regalos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Catálogo Kairo</title>
     <style>
         :root {
-            --primary: #ff5c8a;
-            --secondary: #ff9f1c;
-            --bg-color: #fff4eb;
-            --card-bg: #ffffff;
-            --text-color: #2b2b2b;
-            --accent: #e04b73;
-            --peach: #ffb4a2;
+            --primary: #fe470a;
+            --secondary: #ffe4b3;
+            --accent: #ff789f;
         }
-
-        * {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Quicksand', sans-serif;
+            color: #333;
+            /* Fondo con la imagen que enviaste y un overlay para legibilidad */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('fondo.png') no-repeat center center fixed;
+            background-size: cover;
         }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
         header {
-            background: linear-gradient(135deg, #ffb4a2 0%, #ff5c8a 100%);
-            padding: 2.5rem 1rem;
-            text-align: center;
+            background-color: rgba(254, 71, 10, 0.9);
             color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 40px 20px;
+            text-align: center;
+            backdrop-filter: blur(5px);
         }
-
-        .logo-img {
-            width: 80px;
-            height: 80px;
+        .logo {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
+            border: 4px solid white;
             object-fit: cover;
-            border: 3px solid white;
-            margin-bottom: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
         }
-
-        header h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-        }
-
-        header p {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
         nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            justify-content: center;
+            flex-wrap: wrap;
+            background-color: rgba(255, 120, 159, 0.9);
+            padding: 15px;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
         }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--accent);
+        nav a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
         }
-
-        .cart-btn {
+        .section {
+            padding: 40px 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        h2 { 
+            text-align: center; 
+            color: var(--secondary); 
+            font-size: 2.2rem; 
+            margin-bottom: 30px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        .product-card:hover { transform: scale(1.03); }
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .product-card h3 {
+            color: #333;
+            margin: 15px 0 10px 0;
+        }
+        .btn {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 12px 25px;
+            border-radius: 25px;
             cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background-color 0.2s;
         }
-
-        .cart-btn:hover {
-            background-color: var(--accent);
+        .btn:hover {
+            background-color: #d63c08;
         }
-
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .about-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            border: 2px solid #ffe8e0;
-        }
-
-        .about-section h2 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            border: 1px solid #ffe8e0;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-card.featured-accessory {
-            grid-column: span 1;
-            background: linear-gradient(to bottom, #ffffff, #fff0ed);
-            border: 2px solid var(--primary);
-            transform: scale(1.03);
-        }
-
-        .product-card h3 {
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .product-card p {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 1rem;
-        }
-
-        .add-to-cart {
-            background-color: var(--secondary);
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: opacity 0.3s;
-        }
-
-        .add-to-cart:hover {
-            opacity: 0.9;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .modal-content h2 {
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-
-        .cart-items {
-            max-height: 200px;
-            overflow-y: auto;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 1rem;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .checkout-btn {
-            background-color: #25d366;
-            color: white;
-            border: none;
-            padding: 0.75rem;
-            width: 100%;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-
-        .close-modal {
-            background: #ccc;
-            color: #333;
-            border: none;
-            padding: 0.5rem;
-            width: 100%;
-            border-radius: 10px;
-            margin-top: 0.5rem;
-            cursor: pointer;
-        }
-
         footer {
             text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            background-color: #fff;
-            color: #777;
-            font-size: 0.95rem;
-            border-top: 1px solid #eee;
+            padding: 40px;
+            background: rgba(254, 71, 10, 0.9);
+            color: white;
+            backdrop-filter: blur(5px);
         }
-
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
+        .social-icon { color: white; font-size: 1.2rem; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
-
     <header>
-        <!-- Aquí está el logo enlazado correctamente -->
-        <img src="logo.png" alt="Kairo Logo" class="logo-img" id="header-logo">
-        <h1>Kairo</h1>
-        <p>Tu estilo, tus detalles</p>
+        <img src="logooooo.jpg" alt="Logo Kairo" class="logo">
+        <h1 style="margin: 10px 0 5px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">Kairo</h1>
+        <p style="margin: 0; font-weight: 500;">Estilo minimalista y auténtico</p>
     </header>
 
     <nav>
-        <div class="logo">Kairo</div>
-        <button class="cart-btn" onclick="toggleModal()">Carrito (<span id="cart-count">0</span>)</button>
+        <a href="#llaveros">Llaveros</a>
+        <a href="#accesorios">Accesorios</a>
+        <a href="#carteras">Carteras</a>
     </nav>
 
-    <div class="container">
-        <section class="about-section">
-            <h2>¿Qué es Kairo?</h2>
-            <p>Somos una tienda online dedicada a la merch más cool. Creamos y seleccionamos accesorios y detalles perfectos para regalar o regalarte. Ideal para obsequiar originalidad y buena vibra en cualquier ocasión.</p>
-            <p style="margin-top: 1rem; font-weight: 600; color: var(--accent);">Envíos a toda Valencia</p>
-        </section>
-
-        <h2 style="text-align: center; margin-bottom: 1.5rem; color: var(--accent);">Nuestros Productos</h2>
-        
-        <div class="products-grid">
+    <!-- SECCIÓN LLAVEROS -->
+    <div id="llaveros" class="section">
+        <h2>Llaveros</h2>
+        <div class="grid">
             <div class="product-card">
-                <h3>Llaveros</h3>
-                <p>Diseños únicos y divertidos para llevar tu estilo a todas partes y personalizar tus llaves o bolsos.</p>
-                <div class="price">$3.00</div>
-                <button class="add-to-cart" onclick="addToCart('Llavero Único', 3.00)">Agregar al Carrito</button>
+                <img src="llavero limon monedas 1.jpg" alt="Llavero Monedero Limón">
+                <h3>Llavero Monedero Limón</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
             </div>
-
-            <div class="product-card featured-accessory">
-                <h3 style="font-size: 1.4rem;">Accesorios Destacados</h3>
-                <p style="font-size: 1.05rem;">Complementos llenos de personalidad que le darán un toque súper especial y único a tus outfits diarios. ¡Nuestra selección estrella!</p>
-                <div class="price" style="font-size: 1.3rem;">$5.00</div>
-                <button class="add-to-cart" onclick="addToCart('Accesorio Casual Destacado', 5.00)" style="padding: 0.7rem 1.4rem;">Agregar al Carrito</button>
-            </div>
-
             <div class="product-card">
-                <h3>Merch & Regalos</h3>
-                <p>Todo lo necesario para acertar con un detalle original, tierno y memorable para esa persona especial.</p>
-                <div class="price">$8.00</div>
-                <button class="add-to-cart" onclick="addToCart('Pack Merch & Regalo', 8.00)">Agregar al Carrito</button>
+                <img src="llavero de cangrejo 2].jpg" alt="Llavero Cangrejo">
+                <h3>Llavero Cangrejo</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="llabvero de cangrejo.jpg" alt="Llavero Estilo Cangrejo Bolso">
+                <h3>Llavero Cangrejo (Bolso)</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="llavero fresa limon 1.jpg" alt="Llavero Fresa & Limón">
+                <h3>Llavero Fresa & Limón</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="llavero plteado cartera 2.jpg" alt="Llavero Plateado Set Cartera">
+                <h3>Llavero Plateado Set Cartera</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="llavero rojo c 1.jpg" alt="Llavero Rojo Corazón y Chocolate">
+                <h3>Llavero Rojo Corazón y Chocolate</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="llavero tortuga 1.jpg" alt="Llavero Tortuga de Cuentas">
+                <h3>Llavero Tortuga de Cuentas</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="cart-modal">
-        <div class="modal-content">
-            <h2>Tu Pedido</h2>
-            <div class="cart-items" id="cart-items">
-                <p style="text-align: center; color: #888;">El carrito está vacío</p>
+    <!-- SECCIÓN ACCESORIOS -->
+    <div id="accesorios" class="section">
+        <h2>Accesorios</h2>
+        <div class="grid">
+            <div class="product-card">
+                <img src="pinza de casset 2.jpg" alt="Pinza Cassette">
+                <h3>Pinza Cassette</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
             </div>
-            <div style="font-weight: 700; text-align: right; margin-bottom: 1rem;">
-                Total: $<span id="cart-total">0.00</span>
+            <div class="product-card">
+                <img src="pinza de vaca 1.jpg" alt="Pinza Vaca Vaquera">
+                <h3>Pinza Vaca Vaquera</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
             </div>
-            <button class="checkout-btn" onclick="checkoutWhatsApp()">Hacer pedido por WhatsApp</button>
-            <button class="close-modal" onclick="toggleModal()">Cerrar</button>
+            <div class="product-card">
+                <img src="pinza de pimento.jpg" alt="Pinza Pimiento Rojo">
+                <h3>Pinza Pimiento Rojo</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="set de pulceras tejidas.jpg" alt="Set de Pulseras Tejidas">
+                <h3>Set de Pulseras Tejidas</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="pulseras playeras con dije 1.jpg" alt="Pulseras Playeras con Dije">
+                <h3>Pulseras Playeras con Dije</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="4.jpg" alt="Collar Cocktail Rosa">
+                <h3>Collar Cocktail Rosa</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="3.jpg" alt="Collar Cocktail Naranja">
+                <h3>Collar Cocktail Naranja</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="collar playero 1].jpg" alt="Collar Playero con Dijes">
+                <h3>Collar Playero con Dijes</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="set de collares 1.jpg" alt="Set de Collares Cocktail">
+                <h3>Set de Collares Cocktail</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="sarcillos caballitop 1.jpg" alt="Zarcillos Caballito de Mar">
+                <h3>Zarcillos Caballito de Mar</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="sarcillos corazon 1.jpg" alt="Zarcillos Corazón Lunares">
+                <h3>Zarcillos Corazón Lunares</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="set de anillos 1.jpg" alt="Set de Anillos Playeros">
+                <h3>Set de Anillos Playeros</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="peine concha de mar.jpg" alt="Peine Espejo Concha de Mar">
+                <h3>Peine Espejo Concha de Mar</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN CARTERAS -->
+    <div id="carteras" class="section">
+        <h2>Carteras</h2>
+        <div class="grid">
+            <div class="product-card">
+                <img src="cartera playera 2.jpg" alt="Cartera Playera con Palmera">
+                <h3>Cartera Playera con Palmera</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
+            <div class="product-card">
+                <img src="bill.etera plateada a jugeo 2.jpg" alt="Billetera Plateada Texturizada">
+                <h3>Billetera Plateada Texturizada</h3>
+                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p><a href="https://instagram.com/Kairo_vall" target="_blank">@Kairo_vall</a> | Envíos a toda Valencia</p>
+        <p>Síguenos en Instagram:</p>
+        <a href="https://www.instagram.com/Kairo_vall" class="social-icon">@Kairo_vall</a>
     </footer>
-
-    <script>
-        let cart = [];
-
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            updateCartUI();
-            alert(`¡Agregado al carrito: ${name}!`);
-        }
-
-        function updateCartUI() {
-            document.getElementById('cart-count').innerText = cart.length;
-            const container = document.getElementById('cart-items');
-            const totalElement = document.getElementById('cart-total');
-            
-            if (cart.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #888;">El carrito está vacío</p>';
-                totalElement.innerText = '0.00';
-                return;
-            }
-
-            container.innerHTML = '';
-            let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price;
-                container.innerHTML += `
-                    <div class="cart-item">
-                        <span>${item.name}</span>
-                        <span>$${item.price.toFixed(2)}</span>
-                    </div>
-                `;
-            });
-            totalElement.innerText = total.toFixed(2);
-        }
-
-        function toggleModal() {
-            const modal = document.getElementById('cart-modal');
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function checkoutWhatsApp() {
-            if (cart.length === 0) {
-                alert('Agrega productos a tu carrito antes de hacer el pedido.');
-                return;
-            }
-            let message = '¡Hola! Quiero hacer el siguiente pedido en Kairo:\n\n';
-            let total = 0;
-            cart.forEach(item => {
-                message += `- ${item.name} ($${item.price.toFixed(2)})\n`;
-                total += item.price;
-            });
-            message += `\nTotal a pagar: $${total.toFixed(2)}\n¡Espero confirmación para envíos en Valencia!`;
-            
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/584120000000?text=${encodedMessage}`, '_blank');
-        }
-    </script>
 </body>
 </html>
