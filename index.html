@@ -15,24 +15,52 @@
             margin: 0;
             padding: 0;
             color: #333;
-            /* Fondo con la imagen que enviaste y un overlay para legibilidad */
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('fondo.png') no-repeat center center fixed;
             background-size: cover;
         }
         header {
             background-color: rgba(254, 71, 10, 0.9);
             color: white;
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             backdrop-filter: blur(5px);
+            position: relative;
         }
-        .logo {
+        .logo-container {
             width: 150px;
             height: 150px;
+            margin: 0 auto 10px auto;
             border-radius: 50%;
+            background-color: #ffe4b3; /* Color amarillo/crema de la paleta para que contraste bien con el borde superior */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border: 4px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .logo {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            margin-bottom: 10px;
+        }
+        /* Botón de Carrito Flotante */
+        .cart-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         nav {
             display: flex;
@@ -67,7 +95,7 @@
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 30px;
         }
         .product-card {
@@ -76,32 +104,103 @@
             border-radius: 15px;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .product-card:hover { transform: scale(1.03); }
-        .product-card img {
+        /* Estilos del Carrusel de Imágenes */
+        .carousel {
+            position: relative;
             width: 100%;
             height: 250px;
-            object-fit: cover;
             border-radius: 10px;
+            overflow: hidden;
+            background: #eee;
         }
+        .carousel-images {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+        .carousel-images img {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 16px;
+            border-radius: 50%;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
         .product-card h3 {
             color: #333;
             margin: 15px 0 10px 0;
+            font-size: 1.1rem;
         }
         .btn {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 12px 20px;
             border-radius: 25px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 10px;
             font-weight: bold;
             transition: background-color 0.2s;
         }
         .btn:hover {
             background-color: #d63c08;
+        }
+        /* Modal del Carrito */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        .cart-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 450px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .close-cart {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
         }
         footer {
             text-align: center;
@@ -114,8 +213,14 @@
     </style>
 </head>
 <body>
+
+    <!-- Botón flotante del Carrito -->
+    <button class="cart-btn" onclick="toggleCart()">🛒 Carrito (<span id="cart-count">0</span>)</button>
+
     <header>
-        <img src="logooooo.jpg" alt="Logo Kairo" class="logo">
+        <div class="logo-container">
+            <img src="logooooo.jpg" alt="Logo Kairo" class="logo">
+        </div>
         <h1 style="margin: 10px 0 5px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">Kairo</h1>
         <p style="margin: 0; font-weight: 500;">Estilo minimalista y auténtico</p>
     </header>
@@ -130,40 +235,79 @@
     <div id="llaveros" class="section">
         <h2>Llaveros</h2>
         <div class="grid">
+            <!-- Llavero Limón (con carrusel de 2 fotos) -->
             <div class="product-card">
-                <img src="llavero limon monedas 1.jpg" alt="Llavero Monedero Limón">
+                <div class="carousel" id="car-limon">
+                    <div class="carousel-images">
+                        <img src="llavero limon monedas 1.jpg" alt="Llavero Limón 1">
+                        <img src="llavero limon monedas 2.jpg" alt="Llavero Limón 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-limon', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-limon', 1)">&#10095;</button>
+                </div>
                 <h3>Llavero Monedero Limón</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Llavero Monedero Limón')">Añadir al carrito</button>
             </div>
+
+            <!-- Llavero Cangrejo (con carrusel de 2 fotos) -->
             <div class="product-card">
-                <img src="llavero de cangrejo 2].jpg" alt="Llavero Cangrejo">
+                <div class="carousel" id="car-cangrejo">
+                    <div class="carousel-images">
+                        <img src="llavero de cangrejo 2].jpg" alt="Llavero Cangrejo 1">
+                        <img src="llabvero de cangrejo.jpg" alt="Llavero Cangrejo 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-cangrejo', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-cangrejo', 1)">&#10095;</button>
+                </div>
                 <h3>Llavero Cangrejo</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Llavero Cangrejo')">Añadir al carrito</button>
             </div>
+
+            <!-- Llavero Fresa & Limón -->
             <div class="product-card">
-                <img src="llabvero de cangrejo.jpg" alt="Llavero Estilo Cangrejo Bolso">
-                <h3>Llavero Cangrejo (Bolso)</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
-            </div>
-            <div class="product-card">
-                <img src="llavero fresa limon 1.jpg" alt="Llavero Fresa & Limón">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="llavero fresa limon 1.jpg" alt="Llavero Fresa & Limón">
+                    </div>
+                </div>
                 <h3>Llavero Fresa & Limón</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Llavero Fresa & Limón')">Añadir al carrito</button>
             </div>
+
+            <!-- Llavero Plateado Set Cartera -->
             <div class="product-card">
-                <img src="llavero plteado cartera 2.jpg" alt="Llavero Plateado Set Cartera">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="llavero plteado cartera 2.jpg" alt="Llavero Plateado Set Cartera">
+                    </div>
+                </div>
                 <h3>Llavero Plateado Set Cartera</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Llavero Plateado Set Cartera')">Añadir al carrito</button>
             </div>
+
+            <!-- Llavero Rojo Corazón y Chocolate (con carrusel de 2 fotos) -->
             <div class="product-card">
-                <img src="llavero rojo c 1.jpg" alt="Llavero Rojo Corazón y Chocolate">
+                <div class="carousel" id="car-rojo">
+                    <div class="carousel-images">
+                        <img src="llavero rojo c 1.jpg" alt="Llavero Rojo 1">
+                        <img src="llavero rojo c 2.jpg" alt="Llavero Rojo 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-rojo', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-rojo', 1)">&#10095;</button>
+                </div>
                 <h3>Llavero Rojo Corazón y Chocolate</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Llavero Rojo Corazón y Chocolate')">Añadir al carrito</button>
             </div>
+
+            <!-- Llavero Tortuga de Cuentas -->
             <div class="product-card">
-                <img src="llavero tortuga 1.jpg" alt="Llavero Tortuga de Cuentas">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="llavero tortuga 1.jpg" alt="Llavero Tortuga de Cuentas">
+                    </div>
+                </div>
                 <h3>Llavero Tortuga de Cuentas</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Llavero Tortuga de Cuentas')">Añadir al carrito</button>
             </div>
         </div>
     </div>
@@ -172,70 +316,159 @@
     <div id="accesorios" class="section">
         <h2>Accesorios</h2>
         <div class="grid">
+            <!-- Pinza Cassette -->
             <div class="product-card">
-                <img src="pinza de casset 2.jpg" alt="Pinza Cassette">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="pinza de casset 2.jpg" alt="Pinza Cassette">
+                    </div>
+                </div>
                 <h3>Pinza Cassette</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Pinza Cassette')">Añadir al carrito</button>
             </div>
+
+            <!-- Pinza Vaca Vaquera (con carrusel de 2 fotos) -->
             <div class="product-card">
-                <img src="pinza de vaca 1.jpg" alt="Pinza Vaca Vaquera">
+                <div class="carousel" id="car-vaca">
+                    <div class="carousel-images">
+                        <img src="pinza de vaca 1.jpg" alt="Pinza Vaca 1">
+                        <img src="pinza d evaca 2.jpg" alt="Pinza Vaca 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-vaca', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-vaca', 1)">&#10095;</button>
+                </div>
                 <h3>Pinza Vaca Vaquera</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Pinza Vaca Vaquera')">Añadir al carrito</button>
             </div>
+
+            <!-- Pinza Pimiento Rojo -->
             <div class="product-card">
-                <img src="pinza de pimento.jpg" alt="Pinza Pimiento Rojo">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="pinza de pimento.jpg" alt="Pinza Pimiento Rojo">
+                    </div>
+                </div>
                 <h3>Pinza Pimiento Rojo</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Pinza Pimiento Rojo')">Añadir al carrito</button>
             </div>
+
+            <!-- Set de Pulseras Tejidas -->
             <div class="product-card">
-                <img src="set de pulceras tejidas.jpg" alt="Set de Pulseras Tejidas">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="set de pulceras tejidas.jpg" alt="Set de Pulseras Tejidas">
+                    </div>
+                </div>
                 <h3>Set de Pulseras Tejidas</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Set de Pulseras Tejidas')">Añadir al carrito</button>
             </div>
+
+            <!-- Pulseras Playeras con Dije -->
             <div class="product-card">
-                <img src="pulseras playeras con dije 1.jpg" alt="Pulseras Playeras con Dije">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="pulseras playeras con dije 1.jpg" alt="Pulseras Playeras con Dije">
+                    </div>
+                </div>
                 <h3>Pulseras Playeras con Dije</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Pulseras Playeras con Dije')">Añadir al carrito</button>
             </div>
+
+            <!-- Collar Cocktail Rosa -->
             <div class="product-card">
-                <img src="4.jpg" alt="Collar Cocktail Rosa">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="4.jpg" alt="Collar Cocktail Rosa">
+                    </div>
+                </div>
                 <h3>Collar Cocktail Rosa</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Collar Cocktail Rosa')">Añadir al carrito</button>
             </div>
+
+            <!-- Collar Cocktail Naranja -->
             <div class="product-card">
-                <img src="3.jpg" alt="Collar Cocktail Naranja">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="3.jpg" alt="Collar Cocktail Naranja">
+                    </div>
+                </div>
                 <h3>Collar Cocktail Naranja</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Collar Cocktail Naranja')">Añadir al carrito</button>
             </div>
+
+            <!-- Collar Playero con Dijes (con carrusel de 2 fotos) -->
             <div class="product-card">
-                <img src="collar playero 1].jpg" alt="Collar Playero con Dijes">
+                <div class="carousel" id="car-colplayero">
+                    <div class="carousel-images">
+                        <img src="collar playero 1].jpg" alt="Collar Playero 1">
+                        <img src="collar playero 2.jpg" alt="Collar Playero 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-colplayero', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-colplayero', 1)">&#10095;</button>
+                </div>
                 <h3>Collar Playero con Dijes</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Collar Playero con Dijes')">Añadir al carrito</button>
             </div>
+
+            <!-- Set de Collares Cocktail -->
             <div class="product-card">
-                <img src="set de collares 1.jpg" alt="Set de Collares Cocktail">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="set de collares 1.jpg" alt="Set de Collares Cocktail">
+                    </div>
+                </div>
                 <h3>Set de Collares Cocktail</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Set de Collares Cocktail')">Añadir al carrito</button>
             </div>
+
+            <!-- Zarcillos Caballito de Mar (con carrusel de 2 fotos) -->
             <div class="product-card">
-                <img src="sarcillos caballitop 1.jpg" alt="Zarcillos Caballito de Mar">
+                <div class="carousel" id="car-caballito">
+                    <div class="carousel-images">
+                        <img src="sarcillos caballitop 1.jpg" alt="Zarcillos Caballito 1">
+                        <img src="sarcillos caballito 2.jpg" alt="Zarcillos Caballito 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-caballito', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-caballito', 1)">&#10095;</button>
+                </div>
                 <h3>Zarcillos Caballito de Mar</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Zarcillos Caballito de Mar')">Añadir al carrito</button>
             </div>
+
+            <!-- Zarcillos Corazón Lunares -->
             <div class="product-card">
-                <img src="sarcillos corazon 1.jpg" alt="Zarcillos Corazón Lunares">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="sarcillos corazon 1.jpg" alt="Zarcillos Corazón Lunares">
+                    </div>
+                </div>
                 <h3>Zarcillos Corazón Lunares</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Zarcillos Corazón Lunares')">Añadir al carrito</button>
             </div>
+
+            <!-- Set de Anillos Playeros (con carrusel de 2 fotos) -->
             <div class="product-card">
-                <img src="set de anillos 1.jpg" alt="Set de Anillos Playeros">
+                <div class="carousel" id="car-anillos">
+                    <div class="carousel-images">
+                        <img src="set de anillos 1.jpg" alt="Set de Anillos 1">
+                        <img src="set de anillos 2.jpg" alt="Set de Anillos 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-anillos', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-anillos', 1)">&#10095;</button>
+                </div>
                 <h3>Set de Anillos Playeros</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Set de Anillos Playeros')">Añadir al carrito</button>
             </div>
+
+            <!-- Peine Espejo Concha de Mar -->
             <div class="product-card">
-                <img src="peine concha de mar.jpg" alt="Peine Espejo Concha de Mar">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="peine concha de mar.jpg" alt="Peine Espejo Concha de Mar">
+                    </div>
+                </div>
                 <h3>Peine Espejo Concha de Mar</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Peine Espejo Concha de Mar')">Añadir al carrito</button>
             </div>
         </div>
     </div>
@@ -244,22 +477,121 @@
     <div id="carteras" class="section">
         <h2>Carteras</h2>
         <div class="grid">
+            <!-- Cartera Playera con Palmera -->
             <div class="product-card">
-                <img src="cartera playera 2.jpg" alt="Cartera Playera con Palmera">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="cartera playera 2.jpg" alt="Cartera Playera con Palmera">
+                    </div>
+                </div>
                 <h3>Cartera Playera con Palmera</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Cartera Playera con Palmera')">Añadir al carrito</button>
             </div>
+
+            <!-- Billetera Plateada Texturizada (con carrusel de 2 fotos) -->
             <div class="product-card">
-                <img src="bill.etera plateada a jugeo 2.jpg" alt="Billetera Plateada Texturizada">
+                <div class="carousel" id="car-billetera">
+                    <div class="carousel-images">
+                        <img src="bill.etera plateada a jugeo 1.jpg" alt="Billetera 1">
+                        <img src="bill.etera plateada a jugeo 2.jpg" alt="Billetera 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-billetera', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-billetera', 1)">&#10095;</button>
+                </div>
                 <h3>Billetera Plateada Texturizada</h3>
-                <button class="btn" onclick="alert('Redirigiendo a WhatsApp...')">Comprar por WhatsApp</button>
+                <button class="btn" onclick="addToCart('Billetera Plateada Texturizada')">Añadir al carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <button class="close-cart" onclick="toggleCart()">×</button>
+            <h2>Tu Carrito</h2>
+            <div id="cart-items-container">
+                <p>El carrito está vacío.</p>
+            </div>
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="btn" onclick="checkoutWhatsApp()" style="width: 100%;">Pagar por WhatsApp</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>Síguenos en Instagram:</p>
-        <a href="https://www.instagram.com/Kairo_vall" class="social-icon">@Kairo_vall</a>
+        <p><strong>Contacto:</strong> +58 [Tu Número aquí] | Valencia, Carabobo</p>
+        <p style="margin-top: 10px;">Síguenos en Instagram:</p>
+        <a href="https://www.instagram.com/Kairo_vall" class="social-icon" target="_blank">@Kairo_vall</a>
     </footer>
+
+    <!-- Scripts para el funcionamiento del Carrusel y el Carrito -->
+    <script>
+        // Control de los carruseles de imágenes
+        function moveSlide(carouselId, direction) {
+            const container = document.querySelector(`#${carouselId} .carousel-images`);
+            const totalImages = container.children.length;
+            let index = parseInt(container.getAttribute('data-index') || '0');
+            
+            index += direction;
+            if (index < 0) index = totalImages - 1;
+            if (index >= totalImages) index = 0;
+            
+            container.setAttribute('data-index', index);
+            container.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        // Sistema de Carrito de Compras
+        let cart = [];
+
+        function addToCart(productName) {
+            cart.push(productName);
+            updateCartUI();
+            alert(`¡"${productName}" se añadió al carrito!`);
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const container = document.getElementById('cart-items-container');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p>El carrito está vacío.</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            cart.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item}</span>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;">❌ Eliminar</button>
+                    </div>
+                `;
+            });
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("Tu carrito está vacío.");
+                return;
+            }
+            let message = "¡Hola! Kairo, quiero realizar el siguiente pedido:%0A";
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item}%0A`;
+            });
+            // Reemplaza con tu número de teléfono de WhatsApp en formato internacional sin el '+'
+            let phoneNumber = "584120000000"; 
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+    </script>
 </body>
 </html>
