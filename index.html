@@ -31,7 +31,7 @@
             height: 150px;
             margin: 0 auto 10px auto;
             border-radius: 50%;
-            background-color: #ffe4b3; /* Color amarillo/crema de la paleta para que contraste bien con el borde superior */
+            background-color: #ffe4b3;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -44,7 +44,6 @@
             height: 100%;
             object-fit: cover;
         }
-        /* Botón de Carrito Flotante */
         .cart-btn {
             position: fixed;
             top: 20px;
@@ -108,7 +107,6 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        /* Estilos del Carrusel de Imágenes */
         .carousel {
             position: relative;
             width: 100%;
@@ -128,6 +126,11 @@
             height: 100%;
             object-fit: cover;
         }
+        /* Ajuste especial para que las carteras se vean completas sin recortarse */
+        .cartera-carousel .carousel-images img {
+            object-fit: contain;
+            background-color: #f9f9f9;
+        }
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -139,6 +142,7 @@
             padding: 5px 10px;
             font-size: 16px;
             border-radius: 50%;
+            z-index: 10;
         }
         .prev { left: 10px; }
         .next { right: 10px; }
@@ -162,7 +166,6 @@
         .btn:hover {
             background-color: #d63c08;
         }
-        /* Modal del Carrito */
         .cart-modal {
             display: none;
             position: fixed;
@@ -214,7 +217,6 @@
 </head>
 <body>
 
-    <!-- Botón flotante del Carrito -->
     <button class="cart-btn" onclick="toggleCart()">🛒 Carrito (<span id="cart-count">0</span>)</button>
 
     <header>
@@ -235,10 +237,10 @@
     <div id="llaveros" class="section">
         <h2>Llaveros</h2>
         <div class="grid">
-            <!-- Llavero Limón (con carrusel de 2 fotos) -->
+            <!-- Llavero Limón -->
             <div class="product-card">
                 <div class="carousel" id="car-limon">
-                    <div class="carousel-images">
+                    <div class="carousel-images" data-index="0">
                         <img src="llavero limon monedas 1.jpg" alt="Llavero Limón 1">
                         <img src="llavero limon monedas 2.jpg" alt="Llavero Limón 2">
                     </div>
@@ -249,10 +251,10 @@
                 <button class="btn" onclick="addToCart('Llavero Monedero Limón')">Añadir al carrito</button>
             </div>
 
-            <!-- Llavero Cangrejo (con carrusel de 2 fotos) -->
+            <!-- Llavero Cangrejo -->
             <div class="product-card">
                 <div class="carousel" id="car-cangrejo">
-                    <div class="carousel-images">
+                    <div class="carousel-images" data-index="0">
                         <img src="llavero de cangrejo 2].jpg" alt="Llavero Cangrejo 1">
                         <img src="llabvero de cangrejo.jpg" alt="Llavero Cangrejo 2">
                     </div>
@@ -261,6 +263,34 @@
                 </div>
                 <h3>Llavero Cangrejo</h3>
                 <button class="btn" onclick="addToCart('Llavero Cangrejo')">Añadir al carrito</button>
+            </div>
+
+            <!-- Llavero Tortuga -->
+            <div class="product-card">
+                <div class="carousel" id="car-tortuga">
+                    <div class="carousel-images" data-index="0">
+                        <img src="llavero tortuga 1.jpg" alt="Llavero Tortuga 1">
+                        <img src="llavero tortuga 2.jpg" alt="Llavero Tortuga 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-tortuga', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-tortuga', 1)">&#10095;</button>
+                </div>
+                <h3>Llavero Tortuga de Cuentas</h3>
+                <button class="btn" onclick="addToCart('Llavero Tortuga de Cuentas')">Añadir al carrito</button>
+            </div>
+
+            <!-- Llavero Perrito -->
+            <div class="product-card">
+                <div class="carousel" id="car-perro">
+                    <div class="carousel-images" data-index="0">
+                        <img src="llavero perro 1.jpg" alt="Llavero Perro 1">
+                        <img src="llavero perro 2.jpg" alt="Llavero Perro 2">
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-perro', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-perro', 1)">&#10095;</button>
+                </div>
+                <h3>Llavero Perrito con Cuentas</h3>
+                <button class="btn" onclick="addToCart('Llavero Perrito con Cuentas')">Añadir al carrito</button>
             </div>
 
             <!-- Llavero Fresa & Limón -->
@@ -285,10 +315,10 @@
                 <button class="btn" onclick="addToCart('Llavero Plateado Set Cartera')">Añadir al carrito</button>
             </div>
 
-            <!-- Llavero Rojo Corazón y Chocolate (con carrusel de 2 fotos) -->
+            <!-- Llavero Rojo Corazón y Chocolate -->
             <div class="product-card">
                 <div class="carousel" id="car-rojo">
-                    <div class="carousel-images">
+                    <div class="carousel-images" data-index="0">
                         <img src="llavero rojo c 1.jpg" alt="Llavero Rojo 1">
                         <img src="llavero rojo c 2.jpg" alt="Llavero Rojo 2">
                     </div>
@@ -297,17 +327,6 @@
                 </div>
                 <h3>Llavero Rojo Corazón y Chocolate</h3>
                 <button class="btn" onclick="addToCart('Llavero Rojo Corazón y Chocolate')">Añadir al carrito</button>
-            </div>
-
-            <!-- Llavero Tortuga de Cuentas -->
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="llavero tortuga 1.jpg" alt="Llavero Tortuga de Cuentas">
-                    </div>
-                </div>
-                <h3>Llavero Tortuga de Cuentas</h3>
-                <button class="btn" onclick="addToCart('Llavero Tortuga de Cuentas')">Añadir al carrito</button>
             </div>
         </div>
     </div>
@@ -327,10 +346,10 @@
                 <button class="btn" onclick="addToCart('Pinza Cassette')">Añadir al carrito</button>
             </div>
 
-            <!-- Pinza Vaca Vaquera (con carrusel de 2 fotos) -->
+            <!-- Pinza Vaca Vaquera -->
             <div class="product-card">
                 <div class="carousel" id="car-vaca">
-                    <div class="carousel-images">
+                    <div class="carousel-images" data-index="0">
                         <img src="pinza de vaca 1.jpg" alt="Pinza Vaca 1">
                         <img src="pinza d evaca 2.jpg" alt="Pinza Vaca 2">
                     </div>
@@ -354,13 +373,16 @@
 
             <!-- Set de Pulseras Tejidas -->
             <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
+                <div class="carousel" id="car-pulserastejidas">
+                    <div class="carousel-images" data-index="0">
                         <img src="set de pulceras tejidas.jpg" alt="Set de Pulseras Tejidas">
+                        <img src="pulseras plajeras con dije 2.jpg" alt="Pulseras Playeras con Dije 2">
                     </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-pulserastejidas', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-pulserastejidas', 1)">&#10095;</button>
                 </div>
-                <h3>Set de Pulseras Tejidas</h3>
-                <button class="btn" onclick="addToCart('Set de Pulseras Tejidas')">Añadir al carrito</button>
+                <h3>Set de Pulseras Tejidas y Con Dije</h3>
+                <button class="btn" onclick="addToCart('Set de Pulseras Tejidas y Con Dije')">Añadir al carrito</button>
             </div>
 
             <!-- Pulseras Playeras con Dije -->
@@ -374,32 +396,25 @@
                 <button class="btn" onclick="addToCart('Pulseras Playeras con Dije')">Añadir al carrito</button>
             </div>
 
-            <!-- Collar Cocktail Rosa -->
+            <!-- Collares Cóctel (Agrupados en una sola tarjeta con carrusel) -->
             <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
+                <div class="carousel" id="car-collarescoctel">
+                    <div class="carousel-images" data-index="0">
                         <img src="4.jpg" alt="Collar Cocktail Rosa">
-                    </div>
-                </div>
-                <h3>Collar Cocktail Rosa</h3>
-                <button class="btn" onclick="addToCart('Collar Cocktail Rosa')">Añadir al carrito</button>
-            </div>
-
-            <!-- Collar Cocktail Naranja -->
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
                         <img src="3.jpg" alt="Collar Cocktail Naranja">
+                        <img src="set de collares 1.jpg" alt="Set de Collares Cocktail">
                     </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-collarescoctel', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-collarescoctel', 1)">&#10095;</button>
                 </div>
-                <h3>Collar Cocktail Naranja</h3>
-                <button class="btn" onclick="addToCart('Collar Cocktail Naranja')">Añadir al carrito</button>
+                <h3>Collares & Sets Estilo Cóctel</h3>
+                <button class="btn" onclick="addToCart('Collares & Sets Estilo Cóctel')">Añadir al carrito</button>
             </div>
 
-            <!-- Collar Playero con Dijes (con carrusel de 2 fotos) -->
+            <!-- Collar Playero con Dijes -->
             <div class="product-card">
                 <div class="carousel" id="car-colplayero">
-                    <div class="carousel-images">
+                    <div class="carousel-images" data-index="0">
                         <img src="collar playero 1].jpg" alt="Collar Playero 1">
                         <img src="collar playero 2.jpg" alt="Collar Playero 2">
                     </div>
@@ -410,21 +425,10 @@
                 <button class="btn" onclick="addToCart('Collar Playero con Dijes')">Añadir al carrito</button>
             </div>
 
-            <!-- Set de Collares Cocktail -->
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="set de collares 1.jpg" alt="Set de Collares Cocktail">
-                    </div>
-                </div>
-                <h3>Set de Collares Cocktail</h3>
-                <button class="btn" onclick="addToCart('Set de Collares Cocktail')">Añadir al carrito</button>
-            </div>
-
-            <!-- Zarcillos Caballito de Mar (con carrusel de 2 fotos) -->
+            <!-- Zarcillos Caballito de Mar -->
             <div class="product-card">
                 <div class="carousel" id="car-caballito">
-                    <div class="carousel-images">
+                    <div class="carousel-images" data-index="0">
                         <img src="sarcillos caballitop 1.jpg" alt="Zarcillos Caballito 1">
                         <img src="sarcillos caballito 2.jpg" alt="Zarcillos Caballito 2">
                     </div>
@@ -446,10 +450,10 @@
                 <button class="btn" onclick="addToCart('Zarcillos Corazón Lunares')">Añadir al carrito</button>
             </div>
 
-            <!-- Set de Anillos Playeros (con carrusel de 2 fotos) -->
+            <!-- Set de Anillos Playeros -->
             <div class="product-card">
                 <div class="carousel" id="car-anillos">
-                    <div class="carousel-images">
+                    <div class="carousel-images" data-index="0">
                         <img src="set de anillos 1.jpg" alt="Set de Anillos 1">
                         <img src="set de anillos 2.jpg" alt="Set de Anillos 2">
                     </div>
@@ -479,19 +483,24 @@
         <div class="grid">
             <!-- Cartera Playera con Palmera -->
             <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="cartera playera 2.jpg" alt="Cartera Playera con Palmera">
+                <div class="carousel cartera-carousel" id="car-carteraplayera">
+                    <div class="carousel-images" data-index="0">
+                        <img src="cartera playera 1.jpg" alt="Cartera Playera 1">
+                        <img src="cartera playera 2.jpg" alt="Cartera Playera 2">
                     </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-carteraplayera', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-carteraplayera', 1)">&#10095;</button>
                 </div>
                 <h3>Cartera Playera con Palmera</h3>
                 <button class="btn" onclick="addToCart('Cartera Playera con Palmera')">Añadir al carrito</button>
             </div>
 
-            <!-- Billetera Plateada Texturizada (con carrusel de 2 fotos) -->
+            <!-- Billetera Plateada Texturizada -->
             <div class="product-card">
-                <div class="carousel" id="car-billetera">
-                    <div class="carousel-images">
+                <div class="carousel cartera-carousel" id="car-billetera">
+                    <div class="carousel-images" data-index="0">
+                        <img src="cartera plateada 1.jpg" alt="Cartera Plateada 1">
+                        <img src="cartera plateada 2.jpg" alt="Cartera Plateada 2">
                         <img src="bill.etera plateada a jugeo 1.jpg" alt="Billetera 1">
                         <img src="bill.etera plateada a jugeo 2.jpg" alt="Billetera 2">
                     </div>
@@ -524,9 +533,7 @@
         <a href="https://www.instagram.com/Kairo_vall" class="social-icon" target="_blank">@Kairo_vall</a>
     </footer>
 
-    <!-- Scripts para el funcionamiento del Carrusel y el Carrito -->
     <script>
-        // Control de los carruseles de imágenes
         function moveSlide(carouselId, direction) {
             const container = document.querySelector(`#${carouselId} .carousel-images`);
             const totalImages = container.children.length;
@@ -540,7 +547,6 @@
             container.style.transform = `translateX(-${index * 100}%)`;
         }
 
-        // Sistema de Carrito de Compras
         let cart = [];
 
         function addToCart(productName) {
@@ -588,7 +594,6 @@
             cart.forEach((item, index) => {
                 message += `${index + 1}. ${item}%0A`;
             });
-            // Reemplaza con tu número de teléfono de WhatsApp en formato internacional sin el '+'
             let phoneNumber = "584120000000"; 
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
