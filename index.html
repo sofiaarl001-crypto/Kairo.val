@@ -43,7 +43,6 @@
             width: 104%;
             height: 104%;
             border-radius: 50%;
-            /* object-fit ajustado ligeramente y con un pequeño margen negativo o scale para desbordar y ocultar cualquier borde fino remanente en la parte superior */
             object-fit: cover;
             transform: scale(1.05);
         }
@@ -333,8 +332,9 @@
             <div class="product-card">
                 <div class="carousel" id="car-cassette">
                     <div class="carousel-images" data-index="0">
-                        <img src="pinza de casset 2.jpg" alt="Pinza Cassette 1">
-                        <img src="pinza de casset 2_2.jpg" alt="Pinza Cassette 2">
+                        <img src="pinza de casset 1.jpg" alt="Pinza Cassette 1">
+                        <img src="pinza de casset 2.jpg" alt="Pinza Cassette 2">
+                        <img src="pinza de casset 2_2.jpg" alt="Pinza Cassette 3">
                     </div>
                     <button class="carousel-btn prev" onclick="moveSlide('car-cassette', -1)">&#10094;</button>
                     <button class="carousel-btn next" onclick="moveSlide('car-cassette', 1)">&#10095;</button>
@@ -544,8 +544,19 @@
 
         let cart = [];
 
+        (function() {
+            const savedCart = localStorage.getItem('kairo_cart');
+            if (savedCart) {
+                try {
+                    cart = JSON.parse(savedCart);
+                    updateCartUI();
+                } catch (e) {}
+            }
+        })();
+
         function addToCart(productName) {
             cart.push(productName);
+            localStorage.setItem('kairo_cart', JSON.stringify(cart));
             updateCartUI();
             alert(`¡"${productName}" se añadió al carrito!`);
         }
@@ -577,6 +588,7 @@
 
         function removeFromCart(index) {
             cart.splice(index, 1);
+            localStorage.setItem('kairo_cart', JSON.stringify(cart));
             updateCartUI();
         }
 
