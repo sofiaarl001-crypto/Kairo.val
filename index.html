@@ -31,22 +31,21 @@
             height: 150px;
             margin: 0 auto 10px auto;
             border-radius: 50%;
-            /* Cambiado a transparente para eliminar cualquier fondo o marco no deseado */
             background-color: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Eliminado el borde blanco para que solo se vea el diseño redondo de tu logo */
             border: none;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             overflow: hidden;
         }
         .logo {
-            width: 100%;
-            height: 100%;
+            width: 104%;
+            height: 104%;
             border-radius: 50%;
-            /* Cambiado a cover para que llene todo el círculo de manera perfecta sin bordes negros ni sobras */
+            /* object-fit ajustado ligeramente y con un pequeño margen negativo o scale para desbordar y ocultar cualquier borde fino remanente en la parte superior */
             object-fit: cover;
+            transform: scale(1.05);
         }
         .cart-btn {
             position: fixed;
