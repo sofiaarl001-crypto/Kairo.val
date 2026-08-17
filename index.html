@@ -31,7 +31,6 @@
             height: 150px;
             margin: 0 auto 10px auto;
             border-radius: 50%;
-            /* Fondo blanco para que coincida exactamente con el círculo del logo y eliminar cualquier rastro oscuro */
             background-color: #ffffff;
             display: flex;
             align-items: center;
@@ -43,8 +42,8 @@
         .logo {
             width: 100%;
             height: 100%;
-            /* Usamos contain para que el logo se vea completamente sin recortes ni fondos sobrantes */
-            object-fit: contain;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .cart-btn {
             position: fixed;
