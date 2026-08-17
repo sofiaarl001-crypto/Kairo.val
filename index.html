@@ -31,7 +31,8 @@
             height: 150px;
             margin: 0 auto 10px auto;
             border-radius: 50%;
-            background-color: #ffe4b3;
+            /* Fondo ajustado con un color de la paleta y sin áreas negras */
+            background-color: var(--secondary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -124,7 +125,7 @@
         .carousel-images img {
             min-width: 100%;
             height: 100%;
-            /* object-fit: contain para asegurar que NINGUNA imagen se vea recortada */
+            /* object-fit: contain para que las imágenes se vean completas y nunca recortadas */
             object-fit: contain;
             background-color: #f9f9f9;
         }
@@ -301,12 +302,15 @@
                 <button class="btn" onclick="addToCart('Llavero Fresa & Limón')">Añadir al carrito</button>
             </div>
 
-            <!-- Llavero Plateado Set Cartera -->
+            <!-- Llavero Plateado Set Cartera (con la nueva foto incluida) -->
             <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="llavero plteado cartera 2.jpg" alt="Llavero Plateado Set Cartera">
+                <div class="carousel" id="car-llavplateado">
+                    <div class="carousel-images" data-index="0">
+                        <img src="llavero plteado cartera 1.jpg" alt="Llavero Plateado 1">
+                        <img src="llavero plteado cartera 2.jpg" alt="Llavero Plateado 2">
                     </div>
+                    <button class="carousel-btn prev" onclick="moveSlide('car-llavplateado', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('car-llavplateado', 1)">&#10095;</button>
                 </div>
                 <h3>Llavero Plateado Set Cartera</h3>
                 <button class="btn" onclick="addToCart('Llavero Plateado Set Cartera')">Añadir al carrito</button>
@@ -332,7 +336,7 @@
     <div id="accesorios" class="section">
         <h2>Accesorios</h2>
         <div class="grid">
-            <!-- Pinza Cassette (con la nueva foto añadida) -->
+            <!-- Pinza Cassette -->
             <div class="product-card">
                 <div class="carousel" id="car-cassette">
                     <div class="carousel-images" data-index="0">
@@ -371,7 +375,7 @@
                 <button class="btn" onclick="addToCart('Pinza Pimiento Rojo')">Añadir al carrito</button>
             </div>
 
-            <!-- Set de Pulseras Tejidas (limpio, sin la foto de dijes) -->
+            <!-- Set de Pulseras Tejidas -->
             <div class="product-card">
                 <div class="carousel">
                     <div class="carousel-images">
@@ -382,33 +386,26 @@
                 <button class="btn" onclick="addToCart('Set de Pulseras Tejidas')">Añadir al carrito</button>
             </div>
 
-            <!-- Pulseras Playeras con Dije (con la foto movida aquí) -->
+            <!-- Pulseras Playeras con Dije (solo la segunda imagen solicitada) -->
             <div class="product-card">
-                <div class="carousel" id="car-pulserasdije">
-                    <div class="carousel-images" data-index="0">
-                        <img src="pulseras playeras con dije 1.jpg" alt="Pulseras con Dije 1">
-                        <img src="pulseras plajeras con dije 2.jpg" alt="Pulseras con Dije 2">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="pulseras plajeras con dije 2.jpg" alt="Pulseras Playeras con Dije">
                     </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-pulserasdije', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-pulserasdije', 1)">&#10095;</button>
                 </div>
                 <h3>Pulseras Playeras con Dije</h3>
                 <button class="btn" onclick="addToCart('Pulseras Playeras con Dije')">Añadir al carrito</button>
             </div>
 
-            <!-- Collares Cóctel -->
+            <!-- Collares Cóctel (solo la imagen rosada solicitada) -->
             <div class="product-card">
-                <div class="carousel" id="car-collarescoctel">
-                    <div class="carousel-images" data-index="0">
+                <div class="carousel">
+                    <div class="carousel-images">
                         <img src="4.jpg" alt="Collar Cocktail Rosa">
-                        <img src="3.jpg" alt="Collar Cocktail Naranja">
-                        <img src="set de collares 1.jpg" alt="Set de Collares Cocktail">
                     </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-collarescoctel', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-collarescoctel', 1)">&#10095;</button>
                 </div>
-                <h3>Collares & Sets Estilo Cóctel</h3>
-                <button class="btn" onclick="addToCart('Collares & Sets Estilo Cóctel')">Añadir al carrito</button>
+                <h3>Collar Cóctel Rosa</h3>
+                <button class="btn" onclick="addToCart('Collar Cóctel Rosa')">Añadir al carrito</button>
             </div>
 
             <!-- Collar Playero con Dijes -->
@@ -495,16 +492,18 @@
                 <button class="btn" onclick="addToCart('Cartera Playera con Palmera')">Añadir al carrito</button>
             </div>
 
-            <!-- Billetera Plateada Texturizada (con sus fotos e incluyendo las nuevas variantes agregadas) -->
+            <!-- Billetera Plateada Texturizada -->
             <div class="product-card">
                 <div class="carousel" id="car-billetera">
                     <div class="carousel-images" data-index="0">
+                        <img src="cartera plateada 1.jpg" alt="Cartera Plateada 1">
+                        <img src="cartera plateada 2.jpg" alt="Cartera Plateada 2">
+                        <img src="cartera plateada 2_2.jpg" alt="Cartera Plateada 2_2">
+                        <img src="cartera plateada 1_2.jpg" alt="Cartera Plateada 1_2">
                         <img src="bill.etera plateada a jugeo 1.jpg" alt="Billetera 1">
                         <img src="bill.etera plateada a jugeo 2.jpg" alt="Billetera 2">
                         <img src="bill.etera plateada a jugeo 1_2.jpg" alt="Billetera 1_2">
                         <img src="bill.etera plateada a jugeo 2_2.jpg" alt="Billetera 2_2">
-                        <img src="cartera plateada 1.jpg" alt="Cartera Plateada 1">
-                        <img src="cartera plateada 2.jpg" alt="Cartera Plateada 2">
                     </div>
                     <button class="carousel-btn prev" onclick="moveSlide('car-billetera', -1)">&#10094;</button>
                     <button class="carousel-btn next" onclick="moveSlide('car-billetera', 1)">&#10095;</button>
@@ -596,7 +595,7 @@
             cart.forEach((item, index) => {
                 message += `${index + 1}. ${item}%0A`;
             });
-            // Número de WhatsApp actualizado según lo solicitado
+            // Número de WhatsApp actualizado según lo solicitado: 04127776502
             let phoneNumber = "584127776502"; 
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
