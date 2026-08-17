@@ -8,8 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #fe470a;
-            --secondary: #ffe4b3;
+            /* Naranja un poco más claro solicitado */
+            --primary: #ff6a33;
+            --secondary: #fff5e6; /* Beige casi blanco solicitado */
             --accent: #ff789f;
         }
         body {
@@ -17,11 +18,15 @@
             margin: 0;
             padding: 0;
             color: #333;
+            /* Fondo optimizado para teléfonos utilizando background-attachment fixed para evitar saltos y mejor calidad visual */
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('fondo.png') no-repeat center center fixed;
             background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
         }
         header {
-            background-color: rgba(254, 71, 10, 0.9);
+            background-color: rgba(255, 106, 51, 0.9);
             color: white;
             padding: 30px 20px;
             text-align: center;
@@ -80,7 +85,6 @@
             color: white;
             padding: 10px 15px;
             text-decoration: none;
-            /* Tipografía Montserrat Bold aplicada en negrita donde se necesita */
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             text-transform: uppercase;
@@ -93,11 +97,11 @@
         }
         h2 { 
             text-align: center; 
+            /* Títulos de secciones en beige casi blanco solicitado */
             color: var(--secondary); 
             font-size: 2.2rem; 
             margin-bottom: 30px; 
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-            /* Tipografía Montserrat Bold aplicada en negrita donde se necesita */
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
         }
@@ -156,7 +160,6 @@
             color: #333;
             margin: 15px 0 10px 0;
             font-size: 1.1rem;
-            /* Tipografía Montserrat Bold aplicada en negrita donde se necesita */
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
         }
@@ -172,7 +175,7 @@
             transition: background-color 0.2s;
         }
         .btn:hover {
-            background-color: #d63c08;
+            background-color: #e55925;
         }
         .cart-modal {
             display: none;
@@ -216,7 +219,7 @@
         footer {
             text-align: center;
             padding: 40px;
-            background: rgba(254, 71, 10, 0.9);
+            background: rgba(255, 106, 51, 0.9);
             color: white;
             backdrop-filter: blur(5px);
         }
@@ -232,8 +235,8 @@
             <img src="logooooo.jpg" alt="Logo Kairo" class="logo">
         </div>
         <h1 style="margin: 10px 0 5px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); font-family: 'Montserrat', sans-serif; font-weight: 700;">Kairo</h1>
-        <!-- Texto actualizado según la solicitud con tipografía Montserrat Bold en negrita -->
-        <p style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">donde encontraras tu detallito deseado!!</p>
+        <!-- Texto con la 'D' mayúscula solicitada ("Donde...") y Montserrat Bold -->
+        <p style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">Donde encontraras tu detallito deseado!!</p>
     </header>
 
     <nav>
