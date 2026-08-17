@@ -31,8 +31,8 @@
             height: 150px;
             margin: 0 auto 10px auto;
             border-radius: 50%;
-            /* Logo ajustado al círculo completo con color de la paleta, sin áreas negras */
-            background-color: var(--secondary);
+            /* Fondo blanco para que coincida exactamente con el círculo del logo y eliminar cualquier rastro oscuro */
+            background-color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -43,7 +43,8 @@
         .logo {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            /* Usamos contain para que el logo se vea completamente sin recortes ni fondos sobrantes */
+            object-fit: contain;
         }
         .cart-btn {
             position: fixed;
@@ -459,7 +460,6 @@
     <div id="carteras" class="section">
         <h2>Carteras</h2>
         <div class="grid">
-            <!-- Cartera Playera con Palmera -->
             <div class="product-card">
                 <div class="carousel" id="car-carteraplayera">
                     <div class="carousel-images" data-index="0">
@@ -473,7 +473,6 @@
                 <button class="btn" onclick="addToCart('Cartera Playera con Palmera')">Añadir al carrito</button>
             </div>
 
-            <!-- Billetera Plateada (con sus imágenes exclusivas de billetera) -->
             <div class="product-card">
                 <div class="carousel" id="car-billetera">
                     <div class="carousel-images" data-index="0">
@@ -491,7 +490,6 @@
                 <button class="btn" onclick="addToCart('Billetera Plateada')">Añadir al carrito</button>
             </div>
 
-            <!-- Cartera Plateada (con sus imágenes exclusivas de cartera) -->
             <div class="product-card">
                 <div class="carousel" id="car-carteraplateada">
                     <div class="carousel-images" data-index="0">
