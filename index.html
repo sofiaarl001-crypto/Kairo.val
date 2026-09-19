@@ -3,180 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Kairo</title>
-    <!-- Importación de la tipografía Montserrat Bold desde Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <title>KaiRo | Catálogo</title>
+    <!-- Importación de tipografía elegante -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Naranja un poco más claro solicitado */
-            --primary: #ff6a33;
-            --secondary: #fff5e6; /* Beige casi blanco solicitado */
-            --accent: #ff789f;
+            --bg-cream: #f4e1a7;
+            --text-dark: #3b2414;
+            --primary-pink: #daa095;
+            --light-pink: #e7ccc5;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            color: #333;
-            /* Fondo optimizado para teléfonos utilizando background-attachment fixed para evitar saltos y mejor calidad visual */
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('fondo.png') no-repeat center center fixed;
-            background-size: cover;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
         }
-        header {
-            background-color: rgba(255, 106, 51, 0.9);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            position: relative;
-        }
-        .logo-container {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 10px auto;
-            border-radius: 50%;
-            background-color: transparent;
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-pink);
+            color: var(--text-dark);
+            min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            overflow: hidden;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .logo {
-            width: 104%;
-            height: 104%;
-            border-radius: 50%;
-            object-fit: cover;
-            transform: scale(1.05);
-        }
+
+        /* Botón flotante del carrito */
         .cart-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: var(--accent);
-            color: white;
+            background-color: var(--primary-pink);
+            color: var(--text-dark);
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 30px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             z-index: 2000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(59, 36, 20, 0.15);
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: transform 0.2s ease;
         }
+
+        .cart-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Encabezado */
+        header {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid rgba(218, 160, 149, 0.3);
+        }
+
+        .logo-container {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 15px auto;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(59, 36, 20, 0.1);
+            overflow: hidden;
+            border: 3px solid var(--primary-pink);
+        }
+
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        header p {
+            font-size: 1rem;
+            font-weight: 600;
+            opacity: 0.85;
+        }
+
+        /* Menú de navegación */
         nav {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            background-color: rgba(255, 120, 159, 0.9);
+            gap: 20px;
+            background-color: var(--text-dark);
             padding: 15px;
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+
         nav a {
-            color: white;
-            padding: 10px 15px;
+            color: var(--bg-cream);
             text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: color 0.2s;
         }
+
+        nav a:hover {
+            color: var(--primary-pink);
+        }
+
+        /* Secciones del catálogo */
         .section {
-            padding: 40px 20px;
+            padding: 50px 20px;
             max-width: 1100px;
             margin: auto;
+            width: 100%;
+            flex: 1;
         }
-        h2 { 
-            text-align: center; 
-            /* Títulos de secciones en beige casi blanco solicitado */
-            color: var(--secondary); 
-            font-size: 2.2rem; 
-            margin-bottom: 30px; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-            font-family: 'Montserrat', sans-serif;
+
+        h2 {
+            text-align: center;
+            color: var(--text-dark);
+            font-size: 2rem;
+            margin-bottom: 30px;
             font-weight: 700;
         }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            border: 2px dashed var(--primary-pink);
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 30px;
         }
-        .product-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .carousel {
-            position: relative;
-            width: 100%;
-            height: 250px;
-            border-radius: 10px;
-            overflow: hidden;
-            background: #f9f9f9;
-        }
-        .carousel-images {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.3s ease-in-out;
-        }
-        .carousel-images img {
-            min-width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: #f9f9f9;
-        }
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 5px 10px;
-            font-size: 16px;
-            border-radius: 50%;
-            z-index: 10;
-        }
-        .prev { left: 10px; }
-        .next { right: 10px; }
 
-        .product-card h3 {
-            color: #333;
-            margin: 15px 0 10px 0;
-            font-size: 1.1rem;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-        }
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-weight: bold;
-            transition: background-color 0.2s;
-        }
-        .btn:hover {
-            background-color: #e55925;
-        }
+        /* Modal del Carrito */
         .cart-modal {
             display: none;
             position: fixed;
@@ -184,46 +165,81 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(59, 36, 20, 0.5);
             z-index: 3000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(4px);
         }
+
         .cart-content {
-            background: white;
+            background: var(--bg-cream);
             padding: 30px;
-            border-radius: 15px;
+            border-radius: 20px;
             width: 90%;
             max-width: 450px;
             max-height: 80vh;
             overflow-y: auto;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
+
         .close-cart {
             position: absolute;
             top: 15px;
-            right: 15px;
+            right: 20px;
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
+            color: var(--text-dark);
         }
+
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(59, 36, 20, 0.1);
             padding-bottom: 10px;
+            font-weight: 500;
         }
+
+        .btn-main {
+            background-color: var(--text-dark);
+            color: var(--bg-cream);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            transition: background 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-main:hover {
+            background-color: var(--primary-pink);
+            color: var(--text-dark);
+        }
+
+        /* Pie de página */
         footer {
             text-align: center;
-            padding: 40px;
-            background: rgba(255, 106, 51, 0.9);
-            color: white;
-            backdrop-filter: blur(5px);
+            padding: 30px;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            border-top: 2px solid rgba(218, 160, 149, 0.3);
         }
-        .social-icon { color: white; font-size: 1.2rem; text-decoration: none; font-weight: bold; }
+
+        .social-icon {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary-pink);
+        }
     </style>
 </head>
 <body>
@@ -232,11 +248,11 @@
 
     <header>
         <div class="logo-container">
-            <img src="logooooo.jpg" alt="Logo Kairo" class="logo">
+            <!-- Reemplaza 'nuevologo.png' por el archivo o ruta de tu nueva foto de perfil -->
+            <img src="nuevologo.png" alt="Logo Kairo" class="logo">
         </div>
-        <h1 style="margin: 10px 0 5px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); font-family: 'Montserrat', sans-serif; font-weight: 700;">Kairo</h1>
-        <!-- Texto con la 'D' mayúscula solicitada ("Donde...") y Montserrat Bold -->
-        <p style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">Donde encontraras tu detallito deseado!!</p>
+        <h1>KaiRo</h1>
+        <p>Donde encontrarás tu detallito deseado</p>
     </header>
 
     <nav>
@@ -248,314 +264,47 @@
     <!-- SECCIÓN LLAVEROS -->
     <div id="llaveros" class="section">
         <h2>Llaveros</h2>
-        <div class="grid">
-            <div class="product-card">
-                <div class="carousel" id="car-limon">
-                    <div class="carousel-images" data-index="0">
-                        <img src="llavero limon monedas 1.jpg" alt="Llavero Limón 1">
-                        <img src="llavero limon monedas 2.jpg" alt="Llavero Limón 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-limon', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-limon', 1)">&#10095;</button>
-                </div>
-                <h3>Llavero Monedero Limón</h3>
-                <button class="btn" onclick="addToCart('Llavero Monedero Limón')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-cangrejo">
-                    <div class="carousel-images" data-index="0">
-                        <img src="llavero de cangrejo 2].jpg" alt="Llavero Cangrejo 1">
-                        <img src="llabvero de cangrejo.jpg" alt="Llavero Cangrejo 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-cangrejo', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-cangrejo', 1)">&#10095;</button>
-                </div>
-                <h3>Llavero Cangrejo</h3>
-                <button class="btn" onclick="addToCart('Llavero Cangrejo')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-tortuga">
-                    <div class="carousel-images" data-index="0">
-                        <img src="llavero tortuga 1.jpg" alt="Llavero Tortuga 1">
-                        <img src="llavero tortuga 2.jpg" alt="Llavero Tortuga 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-tortuga', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-tortuga', 1)">&#10095;</button>
-                </div>
-                <h3>Llavero Tortuga de Cuentas</h3>
-                <button class="btn" onclick="addToCart('Llavero Tortuga de Cuentas')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-perro">
-                    <div class="carousel-images" data-index="0">
-                        <img src="llavero perro 1.jpg" alt="Llavero Perro 1">
-                        <img src="llavero perro 2.jpg" alt="Llavero Perro 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-perro', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-perro', 1)">&#10095;</button>
-                </div>
-                <h3>Llavero Perrito con Cuentas</h3>
-                <button class="btn" onclick="addToCart('Llavero Perrito con Cuentas')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="llavero fresa limon 1.jpg" alt="Llavero Fresa & Limón">
-                    </div>
-                </div>
-                <h3>Llavero Fresa & Limón</h3>
-                <button class="btn" onclick="addToCart('Llavero Fresa & Limón')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-llavplateado">
-                    <div class="carousel-images" data-index="0">
-                        <img src="llavero plteado cartera 1.jpg" alt="Llavero Plateado 1">
-                        <img src="llavero plteado cartera 2.jpg" alt="Llavero Plateado 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-llavplateado', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-llavplateado', 1)">&#10095;</button>
-                </div>
-                <h3>Llavero Plateado Set Cartera</h3>
-                <button class="btn" onclick="addToCart('Llavero Plateado Set Cartera')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-rojo">
-                    <div class="carousel-images" data-index="0">
-                        <img src="llavero rojo c 1.jpg" alt="Llavero Rojo 1">
-                        <img src="llavero rojo c 2.jpg" alt="Llavero Rojo 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-rojo', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-rojo', 1)">&#10095;</button>
-                </div>
-                <h3>Llavero Rojo Corazón y Chocolate</h3>
-                <button class="btn" onclick="addToCart('Llavero Rojo Corazón y Chocolate')">Añadir al carrito</button>
-            </div>
+        <div class="empty-state">
+            <p>Pronto agregaremos nuevos llaveros hermosos aquí ✨</p>
         </div>
     </div>
 
     <!-- SECCIÓN ACCESORIOS -->
     <div id="accesorios" class="section">
         <h2>Accesorios</h2>
-        <div class="grid">
-            <div class="product-card">
-                <div class="carousel" id="car-cassette">
-                    <div class="carousel-images" data-index="0">
-                        <img src="pinza de casset 1.jpg" alt="Pinza Cassette 1">
-                        <img src="pinza de casset 2.jpg" alt="Pinza Cassette 2">
-                        <img src="pinza de casset 2_2.jpg" alt="Pinza Cassette 3">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-cassette', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-cassette', 1)">&#10095;</button>
-                </div>
-                <h3>Pinza Cassette</h3>
-                <button class="btn" onclick="addToCart('Pinza Cassette')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-vaca">
-                    <div class="carousel-images" data-index="0">
-                        <img src="pinza de vaca 1.jpg" alt="Pinza Vaca 1">
-                        <img src="pinza d evaca 2.jpg" alt="Pinza Vaca 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-vaca', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-vaca', 1)">&#10095;</button>
-                </div>
-                <h3>Pinza Vaca Vaquera</h3>
-                <button class="btn" onclick="addToCart('Pinza Vaca Vaquera')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="pinza de pimento.jpg" alt="Pinza Pimiento Rojo">
-                    </div>
-                </div>
-                <h3>Pinza Pimiento Rojo</h3>
-                <button class="btn" onclick="addToCart('Pinza Pimiento Rojo')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="set de pulceras tejidas.jpg" alt="Set de Pulseras Tejidas">
-                    </div>
-                </div>
-                <h3>Set de Pulseras Tejidas</h3>
-                <button class="btn" onclick="addToCart('Set de Pulseras Tejidas')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="pulseras plajeras con dije 2.jpg" alt="Pulseras Playeras con Dije">
-                    </div>
-                </div>
-                <h3>Pulseras Playeras con Dije</h3>
-                <button class="btn" onclick="addToCart('Pulseras Playeras con Dije')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="4.jpg" alt="Collar Cocktail Rosa">
-                    </div>
-                </div>
-                <h3>Collar Cóctel Rosa</h3>
-                <button class="btn" onclick="addToCart('Collar Cóctel Rosa')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-colplayero">
-                    <div class="carousel-images" data-index="0">
-                        <img src="collar playero 1].jpg" alt="Collar Playero 1">
-                        <img src="collar playero 2.jpg" alt="Collar Playero 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-colplayero', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-colplayero', 1)">&#10095;</button>
-                </div>
-                <h3>Collar Playero con Dijes</h3>
-                <button class="btn" onclick="addToCart('Collar Playero con Dijes')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-caballito">
-                    <div class="carousel-images" data-index="0">
-                        <img src="sarcillos caballitop 1.jpg" alt="Zarcillos Caballito 1">
-                        <img src="sarcillos caballito 2.jpg" alt="Zarcillos Caballito 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-caballito', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-caballito', 1)">&#10095;</button>
-                </div>
-                <h3>Zarcillos Caballito de Mar</h3>
-                <button class="btn" onclick="addToCart('Zarcillos Caballito de Mar')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="sarcillos corazon 1.jpg" alt="Zarcillos Corazón Lunares">
-                    </div>
-                </div>
-                <h3>Zarcillos Corazón Lunares</h3>
-                <button class="btn" onclick="addToCart('Zarcillos Corazón Lunares')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-anillos">
-                    <div class="carousel-images" data-index="0">
-                        <img src="set de anillos 1.jpg" alt="Set de Anillos 1">
-                        <img src="set de anillos 2.jpg" alt="Set de Anillos 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-anillos', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-anillos', 1)">&#10095;</button>
-                </div>
-                <h3>Set de Anillos Playeros</h3>
-                <button class="btn" onclick="addToCart('Set de Anillos Playeros')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="peine concha de mar.jpg" alt="Peine Espejo Concha de Mar">
-                    </div>
-                </div>
-                <h3>Peine Espejo Concha de Mar</h3>
-                <button class="btn" onclick="addToCart('Peine Espejo Concha de Mar')">Añadir al carrito</button>
-            </div>
+        <div class="empty-state">
+            <p>Pronto agregaremos nuevos accesorios chic aquí ✨</p>
         </div>
     </div>
 
     <!-- SECCIÓN CARTERAS -->
     <div id="carteras" class="section">
         <h2>Carteras</h2>
-        <div class="grid">
-            <div class="product-card">
-                <div class="carousel" id="car-carteraplayera">
-                    <div class="carousel-images" data-index="0">
-                        <img src="cartera playera 1.jpg" alt="Cartera Playera 1">
-                        <img src="cartera playera 2.jpg" alt="Cartera Playera 2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-carteraplayera', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-carteraplayera', 1)">&#10095;</button>
-                </div>
-                <h3>Cartera Playera con Palmera</h3>
-                <button class="btn" onclick="addToCart('Cartera Playera con Palmera')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-billetera">
-                    <div class="carousel-images" data-index="0">
-                        <img src="bill.etera plateada a jugeo 1.jpg" alt="Billetera Plateada 1">
-                        <img src="bill.etera plateada a jugeo 2.jpg" alt="Billetera Plateada 2">
-                        <img src="bill.etera plateada a jugeo 1_2.jpg" alt="Billetera Plateada 1_2">
-                        <img src="bill.etera plateada a jugeo 2_2.jpg" alt="Billetera Plateada 2_2">
-                        <img src="bill.etera plateada a jugeo 1_3.jpg" alt="Billetera Plateada 1_3">
-                        <img src="bill.etera plateada a jugeo 2_3.jpg" alt="Billetera Plateada 2_3">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-billetera', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-billetera', 1)">&#10095;</button>
-                </div>
-                <h3>Billetera Plateada</h3>
-                <button class="btn" onclick="addToCart('Billetera Plateada')">Añadir al carrito</button>
-            </div>
-
-            <div class="product-card">
-                <div class="carousel" id="car-carteraplateada">
-                    <div class="carousel-images" data-index="0">
-                        <img src="cartera plateada 1.jpg" alt="Cartera Plateada 1">
-                        <img src="cartera plateada 2.jpg" alt="Cartera Plateada 2">
-                        <img src="cartera plateada 2_2.jpg" alt="Cartera Plateada 2_2">
-                        <img src="cartera plateada 1_2.jpg" alt="Cartera Plateada 1_2">
-                    </div>
-                    <button class="carousel-btn prev" onclick="moveSlide('car-carteraplateada', -1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="moveSlide('car-carteraplateada', 1)">&#10095;</button>
-                </div>
-                <h3>Cartera Plateada</h3>
-                <button class="btn" onclick="addToCart('Cartera Plateada')">Añadir al carrito</button>
-            </div>
+        <div class="empty-state">
+            <p>Pronto agregaremos nuevas carteras aquí ✨</p>
         </div>
     </div>
 
-    <!-- Modal del Carrito -->
+    <!-- Modal del Carrito / Pedidos -->
     <div class="cart-modal" id="cartModal">
         <div class="cart-content">
             <button class="close-cart" onclick="toggleCart()">×</button>
-            <h2>Tu Carrito</h2>
+            <h2 style="font-size: 1.5rem; margin-bottom: 20px;">Tu Carrito</h2>
             <div id="cart-items-container">
-                <p>El carrito está vacío.</p>
+                <p style="text-align: center; color: #666;">El carrito está vacío.</p>
             </div>
             <div style="margin-top: 20px; text-align: center;">
-                <button class="btn" onclick="checkoutWhatsApp()" style="width: 100%;">Pagar por WhatsApp</button>
+                <button class="btn-main" onclick="checkoutWhatsApp()">Pedir y pagar por WhatsApp</button>
             </div>
         </div>
     </div>
 
     <footer>
         <p><strong>Contacto:</strong> +58 412-7776502 | Valencia, Carabobo</p>
-        <p style="margin-top: 10px;">Síguenos en Instagram:</p>
-        <a href="https://www.instagram.com/Kairo_vall" class="social-icon" target="_blank">@Kairo_vall</a>
+        <p style="margin-top: 8px;">Síguenos en Instagram: <a href="https://www.instagram.com/Kairo_vall" class="social-icon" target="_blank">@Kairo_vall</a></p>
     </footer>
 
     <script>
-        function moveSlide(carouselId, direction) {
-            const container = document.querySelector(`#${carouselId} .carousel-images`);
-            const totalImages = container.children.length;
-            let index = parseInt(container.getAttribute('data-index') || '0');
-            
-            index += direction;
-            if (index < 0) index = totalImages - 1;
-            if (index >= totalImages) index = 0;
-            
-            container.setAttribute('data-index', index);
-            container.style.transform = `translateX(-${index * 100}%)`;
-        }
-
         let cart = [];
 
         (function() {
@@ -568,13 +317,6 @@
             }
         })();
 
-        function addToCart(productName) {
-            cart.push(productName);
-            localStorage.setItem('kairo_cart', JSON.stringify(cart));
-            updateCartUI();
-            alert(`¡"${productName}" se añadió al carrito!`);
-        }
-
         function toggleCart() {
             const modal = document.getElementById('cartModal');
             modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
@@ -585,7 +327,7 @@
             const container = document.getElementById('cart-items-container');
             
             if (cart.length === 0) {
-                container.innerHTML = '<p>El carrito está vacío.</p>';
+                container.innerHTML = '<p style="text-align: center; color: #666;">El carrito está vacío.</p>';
                 return;
             }
 
@@ -594,7 +336,7 @@
                 container.innerHTML += `
                     <div class="cart-item">
                         <span>${item}</span>
-                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;">❌ Eliminar</button>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#b71c1c; cursor:pointer; font-weight:600;">Eliminar</button>
                     </div>
                 `;
             });
